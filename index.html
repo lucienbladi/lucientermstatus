@@ -124,9 +124,14 @@
             const overlay = document.querySelector('.overlay');
             const container = document.querySelector('.container');
 
-            audio.play();
-            overlay.style.display = 'none';
-            container.style.display = 'block';
+            // Ensure the audio starts playing
+            audio.play().then(() => {
+                overlay.style.display = 'none';
+                container.style.display = 'block';
+            }).catch(error => {
+                console.error("Audio playback failed:", error);
+                alert("Please click again to enable audio playback!");
+            });
         }
     </script>
 </body>
