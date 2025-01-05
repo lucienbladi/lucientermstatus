@@ -48,8 +48,8 @@
             display: none;
             background-color: #000; /* Solid black background */
             border-radius: 15px;
-            padding: 40px 20px; /* Increased padding */
-            width: 350px; /* Increased width */
+            padding: 40px 30px; /* Increased padding */
+            width: 380px; /* Increased width */
             text-align: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
@@ -76,7 +76,7 @@
             text-decoration: underline;
         }
         .button {
-            background-color: #FF0000; /* Red background for terminated */
+            background-color: #008000; /* Green background for active */
             border: none;
             color: white;
             padding: 10px 20px;
@@ -85,15 +85,15 @@
             cursor: pointer;
             border-radius: 8px;
             margin-top: 20px;
-            box-shadow: 0px 4px 10px rgba(255, 0, 0, 0.5);
+            box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.5);
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .button:hover {
-            background-color: #B22222; /* Darker red on hover */
+            background-color: #006400;
             transform: translateY(-2px);
         }
         .button:before {
-            content: '\00d7'; /* X symbol */
+            content: '\2714'; /* Checkmark symbol */
             font-size: 16px;
             margin-right: 5px;
         }
@@ -188,12 +188,6 @@
             background-color: #FF69B4;
             border-radius: 5px;
         }
-
-        /* Resize the "Terminated" box */
-        .container {
-            width: 400px; /* Increased width */
-            padding: 50px 30px; /* Increased padding */
-        }
     </style>
 </head>
 <body>
@@ -210,10 +204,10 @@
 
     <!-- Main content -->
     <div class="container">
-        <h1>NEW ACCOUNT - @defaultuser</h1>
+        <h1>@lucienbladi is not terminated</h1>
         <p><a href="https://guns.lol/lucien" target="_blank">https://guns.lol/lucien</a></p>
-        <button class="button">Terminated</button>
-        <p class="update-message">I am terminated, add my new account above.</p>
+        <button class="button">Active</button>
+        <p class="update-message">If I get terminated, this will be updated.</p>
     </div>
 
     <!-- Custom Audio Player -->
