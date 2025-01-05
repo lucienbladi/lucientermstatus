@@ -191,6 +191,7 @@
                 -moz-user-select: none;
                 -ms-user-select: none;
                 user-select: none;
+                pointer-events: none;
             }
             body {
                 pointer-events: none;
@@ -208,8 +209,8 @@
                 font-size: 20px;
                 text-align: center;
             }
-            /* Disable right-click and keyboard shortcuts */
-            body {
+            /* Disable right-click */
+            html, body {
                 pointer-events: none;
             }
             html {
@@ -218,18 +219,8 @@
                 -ms-user-select: none;
                 user-select: none;
             }
-            body:before {
-                content: 'Right-click and keyboard shortcuts are disabled when JavaScript is turned off.';
-                display: block;
-                color: white;
-                background-color: black;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-family: Arial, sans-serif;
-                font-size: 20px;
-                text-align: center;
+            body {
+                pointer-events: none;
             }
         </style>
         <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; color: white; display: flex; align-items: center; justify-content: center; z-index: 9999; font-family: Arial, sans-serif; text-align: center;">
