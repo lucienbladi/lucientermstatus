@@ -17,6 +17,7 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            position: relative;
         }
         .overlay {
             position: fixed;
@@ -96,6 +97,21 @@
             color: #888;
             margin-top: 15px;
         }
+        /* Audio player styling */
+        .audio-container {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        audio {
+            width: 250px;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
@@ -112,11 +128,13 @@
         <p class="update-message">If I get terminated, this will be updated.</p>
     </div>
 
-    <!-- Hidden audio -->
-    <audio id="background-audio">
-        <source src="https://cdn.discordapp.com/attachments/1261181113775423561/1325255297291522159/spotifydown.com_-_delusional.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <!-- Audio player on the side -->
+    <div class="audio-container">
+        <audio id="https://cdn.discordapp.com/attachments/1261181113775423561/1325255297291522159/spotifydown.com_-_delusional.mp3?ex=677b1fac&is=6779ce2c&hm=84206fe7e22b0f779d0daedd8d153cacfaf6e327e6cf8f3e6c2b4941c500796a&" controls>
+            <source src="your-audio-file.mp4" type="audio/mp4">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
 
     <script>
         function startAudio() {
