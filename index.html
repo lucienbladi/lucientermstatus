@@ -100,12 +100,12 @@
 </head>
 <body>
     <!-- Transparent overlay -->
-    <div class="overlay" onclick="startAudio()">
+    <div class="overlay" id="overlay">
         <h1>Click to check Lucien's term status and socials</h1>
     </div>
 
     <!-- Main content -->
-    <div class="container">
+    <div class="container" id="main-content">
         <h1>@lucienbladi is not terminated</h1>
         <p><a href="https://guns.lol/lucien" target="_blank">https://guns.lol/lucien</a></p>
         <button class="button">Active</button>
@@ -119,20 +119,19 @@
     </audio>
 
     <script>
-        function startAudio() {
+        document.getElementById('overlay').addEventListener('click', function () {
             const audio = document.getElementById('background-audio');
-            const overlay = document.querySelector('.overlay');
-            const container = document.querySelector('.container');
+            const overlay = document.getElementById('overlay');
+            const mainContent = document.getElementById('main-content');
 
-            // Ensure the audio starts playing
             audio.play().then(() => {
                 overlay.style.display = 'none';
-                container.style.display = 'block';
+                mainContent.style.display = 'block';
             }).catch(error => {
                 console.error("Audio playback failed:", error);
                 alert("Please click again to enable audio playback!");
             });
-        }
+        });
     </script>
 </body>
 </html>
