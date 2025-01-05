@@ -16,8 +16,30 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            text-align: center;
+            cursor: pointer;
+        }
+        .overlay h1 {
+            font-family: 'Bungee', cursive;
+            color: #FF69B4;
+            font-size: 24px;
+            text-shadow: 2px 2px 8px rgba(255, 105, 180, 0.8);
         }
         .container {
+            display: none;
             background-color: rgba(0, 0, 0, 0.7);
             border-radius: 15px;
             padding: 20px;
@@ -74,23 +96,38 @@
             color: #888;
             margin-top: 15px;
         }
-        .audio-container {
-            display: none; /* Hide the audio container */
-        }
     </style>
 </head>
 <body>
+    <!-- Transparent overlay -->
+    <div class="overlay" onclick="startAudio()">
+        <h1>Click to check Lucien's term status and socials</h1>
+    </div>
+
+    <!-- Main content -->
     <div class="container">
         <h1>@lucienbladi is not terminated</h1>
         <p><a href="https://guns.lol/lucien" target="_blank">https://guns.lol/lucien</a></p>
         <button class="button">Active</button>
         <p class="update-message">If I get terminated, this will be updated.</p>
-        <!-- Hidden audio player -->
-        <div class="audio-container">
-            <audio autoplay loop>
-                <source src="https://cdn.discordapp.com/attachments/1261181113775423561/1325255297291522159/spotifydown.com_-_delusional.mp3?ex=677b1fac&is=6779ce2c&hm=84206fe7e22b0f779d0daedd8d153cacfaf6e327e6cf8f3e6c2b4941c500796a&" type="audio/mpeg">
-            </audio>
-        </div>
     </div>
+
+    <!-- Hidden audio -->
+    <audio id="background-audio">
+        <source src="https://cdn.discordapp.com/attachments/1261181113775423561/1325255297291522159/spotifydown.com_-_delusional.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        function startAudio() {
+            const audio = document.getElementById('background-audio');
+            const overlay = document.querySelector('.overlay');
+            const container = document.querySelector('.container');
+
+            audio.play();
+            overlay.style.display = 'none';
+            container.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
