@@ -113,7 +113,7 @@
     </div>
 
     <!-- Hidden audio -->
-    <audio id="background-audio">
+    <audio id="background-audio" preload="auto">
         <source src="https://cdn.discordapp.com/attachments/1261181113775423561/1325255297291522159/spotifydown.com_-_delusional.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -124,12 +124,15 @@
             const overlay = document.getElementById('overlay');
             const mainContent = document.getElementById('main-content');
 
+            // Attempt to play audio
             audio.play().then(() => {
+                // Audio plays successfully
                 overlay.style.display = 'none';
                 mainContent.style.display = 'block';
             }).catch(error => {
+                // Audio play error handling
                 console.error("Audio playback failed:", error);
-                alert("Please click again to enable audio playback!");
+                alert("Audio playback blocked by your browser. Please enable audio playback and try again.");
             });
         });
     </script>
