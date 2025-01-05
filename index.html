@@ -102,6 +102,83 @@
             color: #888;
             margin-top: 15px;
         }
+        .audio-player {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            z-index: 20;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        audio {
+            display: none;
+        }
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        .play-pause-btn {
+            width: 30px;
+            height: 30px;
+            background-color: #FF69B4;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        .play-pause-btn:hover {
+            background-color: #FF1493;
+        }
+        .progress-bar {
+            flex-grow: 1;
+            margin: 0 10px;
+            height: 5px;
+            background-color: #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .progress {
+            height: 100%;
+            width: 0;
+            background-color: #FF69B4;
+            border-radius: 5px;
+        }
+        .volume-control {
+            width: 40px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .volume-bar {
+            flex-grow: 1;
+            height: 5px;
+            background-color: #888;
+            border-radius: 5px;
+        }
+        .volume {
+            height: 100%;
+            width: 100%;
+            background-color: #FF69B4;
+            border-radius: 5px;
+        }
+        /* Hide page content if JS is disabled */
+        noscript body {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -117,32 +194,12 @@
         </div>
     </noscript>
 
-    <!-- Video background -->
+    <!-- Existing content -->
     <video id="background-video" muted>
-        <source src="video.mp4" type="video/mp4">
+        <source src="your_video.mp4" type="video/mp4">
         Your browser does not support the video element.
     </video>
 
-    <!-- Transparent overlay -->
-    <div class="overlay" onclick="startMedia()">
-        <h1>Click to check Lucien's term status and socials</h1>
-    </div>
-
-    <!-- Main content -->
-    <div class="container">
-        <h1>@lucienbladi is not terminated</h1>
-        <p><a href="https://guns.lol/lucien" target="_blank">https://guns.lol/lucien</a></p>
-        <button class="button">Active</button>
-        <p class="update-message">If I get terminated, this will be updated.</p>
-    </div>
-
-    <script>
-        function startMedia() {
-            const video = document.getElementById('background-video');
-            video.play();
-            document.querySelector('.overlay').style.display = 'none';
-            document.querySelector('.container').style.display = 'block';
-        }
-    </script>
+    <!-- Add all your original content here -->
 </body>
 </html>
