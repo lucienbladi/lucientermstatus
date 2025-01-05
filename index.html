@@ -100,12 +100,12 @@
 </head>
 <body>
     <!-- Transparent overlay -->
-    <div class="overlay" id="overlay">
+    <div class="overlay" onclick="startAudio()">
         <h1>Click to check Lucien's term status and socials</h1>
     </div>
 
     <!-- Main content -->
-    <div class="container" id="main-content">
+    <div class="container">
         <h1>@lucienbladi is not terminated</h1>
         <p><a href="https://guns.lol/lucien" target="_blank">https://guns.lol/lucien</a></p>
         <button class="button">Active</button>
@@ -113,28 +113,21 @@
     </div>
 
     <!-- Hidden audio -->
-    <audio id="background-audio" preload="auto">
+    <audio id="background-audio">
         <source src="https://cdn.discordapp.com/attachments/1261181113775423561/1325255297291522159/spotifydown.com_-_delusional.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
     <script>
-        document.getElementById('overlay').addEventListener('click', function () {
+        function startAudio() {
             const audio = document.getElementById('background-audio');
-            const overlay = document.getElementById('overlay');
-            const mainContent = document.getElementById('main-content');
+            const overlay = document.querySelector('.overlay');
+            const container = document.querySelector('.container');
 
-            // Attempt to play audio
-            audio.play().then(() => {
-                // Audio plays successfully
-                overlay.style.display = 'none';
-                mainContent.style.display = 'block';
-            }).catch(error => {
-                // Audio play error handling
-                console.error("Audio playback failed:", error);
-                alert("Audio playback blocked by your browser. Please enable audio playback and try again.");
-            });
-        });
+            audio.play();
+            overlay.style.display = 'none';
+            container.style.display = 'block';
+        }
     </script>
 </body>
 </html>
