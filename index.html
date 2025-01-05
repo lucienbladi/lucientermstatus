@@ -270,7 +270,7 @@
 
         document.addEventListener('contextmenu', function (e) {
             e.preventDefault();
-            alert("get out bruzz");
+            alert("Error");
         });
 
         document.addEventListener('keydown', function (e) {
@@ -288,7 +288,7 @@
             ];
             if (blockedKeys.includes(e.key) || blockedCombos.some(combo => combo)) {
                 e.preventDefault();
-                alert("get out of dev tools");
+                alert("Error");
             }
         });
     </script>
