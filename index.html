@@ -7,10 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
     <style>
         body {
-            background: url('https://cdn.discordapp.com/attachments/1261181113775423561/1325301213893492777/Iffy_Foreign_-_Victim_ft._Kyle_Richh_Jenn_Carter_Official_Video.mp4?ex=677b4a70&is=6779f8f0&hm=53ea558bfae062bcca4fb3b3732934655c56f5b633b4db75788768a6b7b02ddf&') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Arial', sans-serif;
-            color: #fff;
             margin: 0;
             display: flex;
             justify-content: center;
@@ -18,6 +14,15 @@
             height: 100vh;
             overflow: hidden;
             position: relative;
+        }
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
         }
         .overlay {
             position: fixed;
@@ -97,30 +102,15 @@
             color: #888;
             margin-top: 15px;
         }
-        /* Audio player styling */
-        .audio-container {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            width: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-        }
-        audio {
-            width: 100%;
-            border-radius: 8px;
-            background: #333;
-            border: 1px solid #555;
-        }
     </style>
 </head>
 <body>
+    <!-- Video background -->
+    <video autoplay loop muted>
+        <source src="https://cdn.discordapp.com/attachments/1261181113775423561/1325301213893492777/Iffy_Foreign_-_Victim_ft._Kyle_Richh_Jenn_Carter_Official_Video.mp4?ex=677b4a70&is=6779f8f0&hm=53ea558bfae062bcca4fb3b3732934655c56f5b633b4db75788768a6b7b02ddf&" type="video/mp4">
+        Your browser does not support the video element.
+    </video>
+
     <!-- Transparent overlay -->
     <div class="overlay" onclick="startAudio()">
         <h1>Click to check Lucien's term status and socials</h1>
@@ -132,14 +122,6 @@
         <p><a href="https://guns.lol/lucien" target="_blank">https://guns.lol/lucien</a></p>
         <button class="button">Active</button>
         <p class="update-message">If I get terminated, this will be updated.</p>
-    </div>
-
-    <!-- Audio player on the side -->
-    <div class="audio-container">
-        <audio id="background-audio" controls>
-            <source src="https://cdn.discordapp.com/attachments/1261181113775423561/1325300718764036116/Iffy_Foreign_-_Victim_ft._Kyle_Richh_Jenn_Carter_Official_Video.mp3?ex=677b49fa&is=6779f87a&hm=e9c511362d3c658d2b3dff40cca1ff11fba2fa018734a82eff45c97331b80531&" type="audio/mp4">
-            Your browser does not support the audio element.
-        </audio>
     </div>
 
     <script>
