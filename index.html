@@ -191,18 +191,15 @@
     </style>
 </head>
 <body>
-    <!-- Video background (hidden initially) -->
     <video id="background-video" muted>
         <source src="https://cdn.discordapp.com/attachments/1261181113775423561/1325301213893492777/Iffy_Foreign_-_Victim_ft._Kyle_Richh_Jenn_Carter_Official_Video.mp4?ex=677b4a70&is=6779f8f0&hm=53ea558bfae062bcca4fb3b3732934655c56f5b633b4db75788768a6b7b02ddf&" type="video/mp4">
         Your browser does not support the video element.
     </video>
 
-    <!-- Transparent overlay -->
     <div class="overlay" onclick="startMedia()">
         <h1>Click to check Lucien's term status and socials</h1>
     </div>
 
-    <!-- Main content -->
     <div class="container">
         <h1>@lucienbladi is not terminated</h1>
         <p><a href="https://guns.lol/lucien" target="_blank">https://guns.lol/lucien</a></p>
@@ -210,7 +207,6 @@
         <p class="update-message">If I get terminated, this will be updated.</p>
     </div>
 
-    <!-- Custom Audio Player -->
     <div class="audio-player">
         <div class="audio-controls">
             <button class="play-pause-btn" onclick="togglePlayPause()">▶</button>
@@ -224,12 +220,12 @@
     </div>
 
     <script>
+        // Audio and video control
         const audio = new Audio('https://cdn.discordapp.com/attachments/1261181113775423561/1325300718764036116/Iffy_Foreign_-_Victim_ft._Kyle_Richh_Jenn_Carter_Official_Video.mp3?ex=677b49fa&is=6779f87a&hm=e9c511362d3c658d2b3dff40cca1ff11fba2fa018734a82eff45c97331b80531&');
         const playPauseBtn = document.querySelector('.play-pause-btn');
         const progressBar = document.querySelector('.progress');
         const progressBarContainer = document.querySelector('.progress-bar');
         const volumeBar = document.querySelector('.volume');
-
         let isPlaying = false;
 
         function startMedia() {
@@ -270,6 +266,31 @@
             audio.volume = volume;
             volumeBar.style.width = `${volume * 100}%`;
         }
+
+        // Disable right-click and keybinds
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+            alert("nigga you cant steal my src");
+        });
+
+        document.addEventListener('keydown', function (e) {
+            const blockedKeys = ["F12", "F11", "F10", "F9"];
+            const blockedCombos = [
+                e.ctrlKey && e.key === "U",
+                e.ctrlKey && e.shiftKey && e.key === "I",
+                e.ctrlKey && e.shiftKey && e.key === "J",
+                e.ctrlKey && e.key === "P",
+                e.ctrlKey && e.shiftKey && e.key === "C",
+                e.ctrlKey && e.shiftKey && e.key === "K",
+                e.ctrlKey && e.key === "S",
+                e.metaKey && e.key === "Q",
+                e.metaKey && e.key === "I",
+            ];
+            if (blockedKeys.includes(e.key) || blockedCombos.some(combo => combo)) {
+                e.preventDefault();
+                alert("nigga get out dev tools");
+            }
+        });
     </script>
 </body>
 </html>
