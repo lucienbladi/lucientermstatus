@@ -186,42 +186,6 @@
             body {
                 display: none;
             }
-            html {
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                pointer-events: none;
-            }
-            body {
-                pointer-events: none;
-            }
-            body:after {
-                content: 'JavaScript is required to view this site.';
-                display: block;
-                color: white;
-                background-color: black;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-family: Arial, sans-serif;
-                font-size: 20px;
-                text-align: center;
-            }
-            /* Disable right-click */
-            html, body {
-                pointer-events: none;
-            }
-            html {
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
-            body {
-                pointer-events: none;
-            }
         </style>
         <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; color: white; display: flex; align-items: center; justify-content: center; z-index: 9999; font-family: Arial, sans-serif; text-align: center;">
             <h1>JavaScript is required to view this site.</h1>
@@ -286,7 +250,7 @@
 
         audio.ontimeupdate = function () {
             const progress = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = `${progress}%`;
+            progressBar.style.width = ${progress}%;
         };
 
         function seekAudio(event) {
@@ -301,7 +265,7 @@
             const width = volumeBar.offsetWidth;
             const volume = clickX / width;
             audio.volume = volume;
-            volumeBar.style.width = `${volume * 100}%`;
+            volumeBar.style.width = ${volume * 100}%;
         }
 
         document.addEventListener('contextmenu', function (e) {
