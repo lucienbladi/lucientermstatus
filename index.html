@@ -99,15 +99,18 @@
         }
         /* Audio player styling */
         .audio-container {
-            position: absolute;
-            top: 50%;
+            position: fixed;
+            top: 0;
             right: 0;
-            transform: translateY(-50%);
+            bottom: 0;
             background-color: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
         audio {
             width: 100%;
