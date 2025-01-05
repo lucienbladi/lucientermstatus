@@ -102,7 +102,8 @@
             color: #888;
             margin-top: 15px;
         }
-        /* Styling the audio player */
+
+        /* Styling the custom audio player */
         .audio-player {
             position: fixed;
             bottom: 10px;
@@ -114,22 +115,78 @@
             padding: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
             z-index: 20;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        /* Hide default audio player controls */
         audio {
+            display: none; /* Completely hide the native controls */
+        }
+
+        /* Custom audio player UI */
+        .audio-controls {
+            display: flex;
+            align-items: center;
             width: 100%;
-            background: transparent; /* Make background transparent */
-            border: none; /* Remove border */
-            outline: none; /* Remove focus outline */
-            color: transparent; /* Hide audio controls text */
         }
-        audio::-webkit-media-controls-panel {
-            background: transparent !important; /* Make panel transparent */
+
+        .play-pause-btn {
+            width: 30px;
+            height: 30px;
+            background-color: #FF69B4;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
         }
-        audio::-webkit-media-controls-play-button,
-        audio::-webkit-media-controls-volume-slider,
-        audio::-webkit-media-controls-mute-button,
-        audio::-webkit-media-controls-volume-control-container {
-            background: transparent !important; /* Make controls transparent */
+
+        .play-pause-btn:hover {
+            background-color: #FF1493;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            margin: 0 10px;
+            height: 5px;
+            background-color: #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0;
+            background-color: #FF69B4;
+            border-radius: 5px;
+        }
+
+        .volume-control {
+            width: 40px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .volume-bar {
+            flex-grow: 1;
+            height: 5px;
+            background-color: #888;
+            border-radius: 5px;
+        }
+
+        .volume {
+            height: 100%;
+            width: 100%;
+            background-color: #FF69B4;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -153,37 +210,66 @@
         <p class="update-message">If I get terminated, this will be updated.</p>
     </div>
 
-    <!-- Audio player -->
+    <!-- Custom Audio Player -->
     <div class="audio-player">
-        <audio id="background-audio" controls>
-            <source src="https://cdn.discordapp.com/attachments/1261181113775423561/1325300718764036116/Iffy_Foreign_-_Victim_ft._Kyle_Richh_Jenn_Carter_Official_Video.mp3?ex=677b49fa&is=6779f87a&hm=e9c511362d3c658d2b3dff40cca1ff11fba2fa018734a82eff45c97331b80531&" type="audio/mp3">
-            Your browser does not support the audio element.
-        </audio>
+        <div class="audio-controls">
+            <button class="play-pause-btn" onclick="togglePlayPause()">▶</button>
+            <div class="progress-bar" onclick="seekAudio(event)">
+                <div class="progress"></div>
+            </div>
+            <div class="volume-control" onclick="adjustVolume(event)">
+                <div class="volume"></div>
+            </div>
+        </div>
     </div>
 
     <script>
+        const audio = new Audio('https://cdn.discordapp.com/attachments/1261181113775423561/1325300718764036116/Iffy_Foreign_-_Victim_ft._Kyle_Richh_Jenn_Carter_Official_Video.mp3?ex=677b49fa&is=6779f87a&hm=e9c511362d3c658d2b3dff40cca1ff11fba2fa018734a82eff45c97331b80531&');
+        const playPauseBtn = document.querySelector('.play-pause-btn');
+        const progressBar = document.querySelector('.progress');
+        const progressBarContainer = document.querySelector('.progress-bar');
+        const volumeBar = document.querySelector('.volume');
+
+        let isPlaying = false;
+
         function startMedia() {
             const video = document.getElementById('background-video');
-            const audio = document.getElementById('background-audio');
-            const overlay = document.querySelector('.overlay');
-            const container = document.querySelector('.container');
-
-            // Play the video and audio
             video.play();
             audio.play();
-
-            // Hide the overlay and show the main content
-            overlay.style.display = 'none';
-            container.style.display = 'block';
+            document.querySelector('.overlay').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
         }
 
-        // Make sure the video is paused until the click happens
-        window.onload = function() {
-            const video = document.getElementById('background-video');
-            const audio = document.getElementById('background-audio');
-            video.pause();  // Ensure the video is paused when the page loads
-            audio.pause();  // Ensure the audio is paused when the page loads
+        function togglePlayPause() {
+            if (isPlaying) {
+                audio.pause();
+                playPauseBtn.textContent = '▶';
+            } else {
+                audio.play();
+                playPauseBtn.textContent = '❚❚';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        audio.ontimeupdate = function () {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = `${progress}%`;
         };
+
+        function seekAudio(event) {
+            const clickX = event.offsetX;
+            const width = progressBarContainer.offsetWidth;
+            const duration = audio.duration;
+            audio.currentTime = (clickX / width) * duration;
+        }
+
+        function adjustVolume(event) {
+            const clickX = event.offsetX;
+            const width = volumeBar.offsetWidth;
+            const volume = clickX / width;
+            audio.volume = volume;
+            volumeBar.style.width = `${volume * 100}%`;
+        }
     </script>
 </body>
 </html>
