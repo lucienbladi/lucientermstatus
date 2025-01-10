@@ -34,7 +34,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 999; /* Make sure the overlay is on top */
+            z-index: 999;
             text-align: center;
             cursor: pointer;
         }
@@ -102,99 +102,11 @@
             color: #888;
             margin-top: 15px;
         }
-        .audio-player {
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            padding: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-            z-index: 20;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        audio {
-            display: none;
-        }
-        .audio-controls {
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-        .play-pause-btn {
-            width: 30px;
-            height: 30px;
-            background-color: #FF69B4;
-            border-radius: 50%;
-            color: white;
-            font-size: 18px;
-            text-align: center;
-            cursor: pointer;
-            border: none;
-            transition: background-color 0.3s;
-        }
-        .play-pause-btn:hover {
-            background-color: #FF1493;
-        }
-        .progress-bar {
-            flex-grow: 1;
-            margin: 0 10px;
-            height: 5px;
-            background-color: #ccc;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .progress {
-            height: 100%;
-            width: 0;
-            background-color: #FF69B4;
-            border-radius: 5px;
-        }
-        .volume-control {
-            width: 40px;
-            height: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        .volume-bar {
-            flex-grow: 1;
-            height: 5px;
-            background-color: #888;
-            border-radius: 5px;
-        }
-        .volume {
-            height: 100%;
-            width: 100%;
-            background-color: #FF69B4;
-            border-radius: 5px;
-        }
-        body.noscript {
-            display: none;
-        }
     </style>
 </head>
 <body>
-    <noscript>
-        <style>
-            body {
-                display: none;
-            }
-        </style>
-        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; color: white; display: flex; align-items: center; justify-content: center; z-index: 9999; font-family: Arial, sans-serif; text-align: center;">
-            <h1>JavaScript is required to view this site.</h1>
-            <p>Please enable JavaScript in your browser settings and refresh the page.</p>
-        </div>
-    </noscript>
-
     <video id="background-video" muted>
-        <source src="https://cdn.discordapp.com/attachments/1261181113775423561/1327352595408228494/jaydes_-_slugs_official_music_video_dir._1karlwithak_-_jaydes_720p_h264.mp4?ex=6782c0ef&is=67816f6f&hm=13839b9b2ce2499110cda24310e342f2cc26ae85d19dae92f5a29041e4f7c4f6&" type="video/mp4">
+        <source src="https://cdn.discordapp.com/attachments/1261181113775423561/1327352595408228494/jaydes_-_slugs_official_music_video_dir._1karlwithak_-_jaydes_720p_h264.mp4" type="video/mp4">
         Your browser does not support the video element.
     </video>
 
@@ -209,65 +121,23 @@
         <p class="update-message">If I get terminated, this will be updated.</p>
     </div>
 
-    <div class="audio-player">
-        <div class="audio-controls">
-            <button class="play-pause-btn" onclick="togglePlayPause()">▶</button>
-            <div class="progress-bar" onclick="seekAudio(event)">
-                <div class="progress"></div>
-            </div>
-            <div class="volume-control" onclick="adjustVolume(event)">
-                <div class="volume"></div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        const audio = new Audio('https://cdn.discordapp.com/attachments/1261181113775423561/1327356159300079698/talk_to_me_-_jaydes.mp3?ex=6782c441&is=678172c1&hm=f734c609d0d47ee1f5b4ea537586998020c8f4315e77cc822fcae7554305dcec&');
-        const playPauseBtn = document.querySelector('.play-pause-btn');
-        const progressBar = document.querySelector('.progress');
-        const progressBarContainer = document.querySelector('.progress-bar');
-        const volumeBar = document.querySelector('.volume');
+        const audio = new Audio('https://cdn.discordapp.com/attachments/1261181113775423561/1327356159300079698/talk_to_me_-_jaydes.mp3');
         let isPlaying = false;
 
         function startMedia() {
-            console.log("startMedia triggered");  // Debugging log
             const video = document.getElementById('background-video');
             video.play();
             audio.play();
+            isPlaying = true;
             document.querySelector('.overlay').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
         }
 
-        function togglePlayPause() {
-            if (isPlaying) {
-                audio.pause();
-                playPauseBtn.textContent = '▶';
-            } else {
-                audio.play();
-                playPauseBtn.textContent = '❚❚';
-            }
-            isPlaying = !isPlaying;
-        }
-
         audio.ontimeupdate = function () {
             const progress = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = ${progress}%;
+            document.querySelector('.progress').style.width = `${progress}%`;
         };
-
-        function seekAudio(event) {
-            const clickX = event.offsetX;
-            const width = progressBarContainer.offsetWidth;
-            const duration = audio.duration;
-            audio.currentTime = (clickX / width) * duration;
-        }
-
-        function adjustVolume(event) {
-            const clickX = event.offsetX;
-            const width = volumeBar.offsetWidth;
-            const volume = clickX / width;
-            audio.volume = volume;
-            volumeBar.style.width = ${volume * 100}%;
-        }
 
         document.addEventListener('contextmenu', function (e) {
             e.preventDefault();
