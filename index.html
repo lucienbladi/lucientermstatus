@@ -34,7 +34,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 999; /* Make sure the overlay is on top */
+            z-index: 999;
             text-align: center;
             cursor: pointer;
         }
@@ -123,10 +123,15 @@
         <p class="update-message">If I get terminated, this will be updated.</p>
     </div>
 
+    <audio id="audio-player" src="https://cdn.discordapp.com/attachments/1261181113775423561/1327352601808863242/Jaydes_Nunya_-_whatever.mp3" preload="auto"></audio>
+
     <script>
+        const audio = document.getElementById('audio-player');
+
         function startMedia() {
             const video = document.getElementById('background-video');
             video.play();
+            audio.play();
             document.querySelector('.overlay').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
         }
