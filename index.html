@@ -52,6 +52,8 @@
             width: 380px;
             text-align: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            transition: transform 0.1s ease-out;
         }
         h1 {
             font-family: 'Bungee', cursive;
@@ -102,97 +104,9 @@
             color: #888;
             margin-top: 15px;
         }
-        .audio-player {
-            position: fixed;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            background-color: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            padding: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-            z-index: 20;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        audio {
-            display: none;
-        }
-        .audio-controls {
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-        .play-pause-btn {
-            width: 30px;
-            height: 30px;
-            background-color: #FF69B4;
-            border-radius: 50%;
-            color: white;
-            font-size: 18px;
-            text-align: center;
-            cursor: pointer;
-            border: none;
-            transition: background-color 0.3s;
-        }
-        .play-pause-btn:hover {
-            background-color: #FF1493;
-        }
-        .progress-bar {
-            flex-grow: 1;
-            margin: 0 10px;
-            height: 5px;
-            background-color: #ccc;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .progress {
-            height: 100%;
-            width: 0;
-            background-color: #FF69B4;
-            border-radius: 5px;
-        }
-        .volume-control {
-            width: 40px;
-            height: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        .volume-bar {
-            flex-grow: 1;
-            height: 5px;
-            background-color: #888;
-            border-radius: 5px;
-        }
-        .volume {
-            height: 100%;
-            width: 100%;
-            background-color: #FF69B4;
-            border-radius: 5px;
-        }
-        body.noscript {
-            display: none;
-        }
     </style>
 </head>
 <body>
-    <noscript>
-        <style>
-            body {
-                display: none;
-            }
-        </style>
-        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; color: white; display: flex; align-items: center; justify-content: center; z-index: 9999; font-family: Arial, sans-serif; text-align: center;">
-            <h1>JavaScript is required to view this site.</h1>
-            <p>Please enable JavaScript in your browser settings and refresh the page.</p>
-        </div>
-    </noscript>
-
     <video id="background-video" muted>
         <source src="https://cdn.discordapp.com/attachments/1261181113775423561/1327352595408228494/jaydes_-_slugs_official_music_video_dir._1karlwithak_-_jaydes_720p_h264.mp4?ex=6782c0ef&is=67816f6f&hm=13839b9b2ce2499110cda24310e342f2cc26ae85d19dae92f5a29041e4f7c4f6&" type="video/mp4">
         Your browser does not support the video element.
@@ -209,88 +123,25 @@
         <p class="update-message">If I get terminated, this will be updated.</p>
     </div>
 
-    <div class="audio-player">
-        <div class="audio-controls">
-            <button class="play-pause-btn" onclick="togglePlayPause()">▶</button>
-            <div class="progress-bar" onclick="seekAudio(event)">
-                <div class="progress"></div>
-            </div>
-            <div class="volume-control" onclick="adjustVolume(event)">
-                <div class="volume"></div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        const audio = new Audio('https://cdn.discordapp.com/attachments/1261181113775423561/1327352601808863242/Jaydes_Nunya_-_whatever.mp3?ex=6782c0f1&is=67816f71&hm=ba16c38b34948809047f1dbaab0a6595fb0b010fb78a0272c737e6c0700cb5ff&');
-        const playPauseBtn = document.querySelector('.play-pause-btn');
-        const progressBar = document.querySelector('.progress');
-        const progressBarContainer = document.querySelector('.progress-bar');
-        const volumeBar = document.querySelector('.volume');
-        let isPlaying = false;
-
         function startMedia() {
-            console.log("startMedia triggered");  // Debugging log
             const video = document.getElementById('background-video');
             video.play();
-            audio.play();
             document.querySelector('.overlay').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
         }
 
-        function togglePlayPause() {
-            if (isPlaying) {
-                audio.pause();
-                playPauseBtn.textContent = '▶';
-            } else {
-                audio.play();
-                playPauseBtn.textContent = '❚❚';
-            }
-            isPlaying = !isPlaying;
-        }
+        const container = document.querySelector('.container');
 
-        audio.ontimeupdate = function () {
-            const progress = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = `${progress}%`;
-        };
-
-        function seekAudio(event) {
-            const clickX = event.offsetX;
-            const width = progressBarContainer.offsetWidth;
-            const duration = audio.duration;
-            audio.currentTime = (clickX / width) * duration;
-        }
-
-        function adjustVolume(event) {
-            const clickX = event.offsetX;
-            const width = volumeBar.offsetWidth;
-            const volume = clickX / width;
-            audio.volume = volume;
-            volumeBar.style.width = `${volume * 100}%`;
-        }
-
-        document.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-            alert("Error");
+        container.addEventListener('mousemove', function (e) {
+            const rect = container.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const moveX = (mouseX / rect.width - 0.5) * 40; // Scale movement to 40px
+            container.style.transform = `translateX(${moveX}px)`;
         });
 
-        document.addEventListener('keydown', function (e) {
-            const blockedKeys = ["F12", "F11", "F10", "F9"];
-            const blockedCombos = [
-                e.ctrlKey && e.key === "U",
-                e.ctrlKey && e.shiftKey && e.key === "I",
-                e.ctrlKey && e.shiftKey && e.key === "J",
-                e.ctrlKey && e.key === "P",
-                e.ctrlKey && e.shiftKey && e.key === "C",
-                e.ctrlKey && e.shiftKey && e.key === "K",
-                e.ctrlKey && e.key === "S",
-                e.metaKey && e.key === "Q",
-                e.metaKey && e.key === "I",
-            ];
-            if (blockedKeys.includes(e.key) || blockedCombos.some(combo => combo)) {
-                e.preventDefault();
-                alert("Error");
-            }
+        container.addEventListener('mouseleave', function () {
+            container.style.transform = `translateX(0)`;
         });
     </script>
 </body>
