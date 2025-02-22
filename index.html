@@ -76,20 +76,24 @@
             text-decoration: underline;
         }
         .button {
-            background-color: #FFA500; /* Orange color */
+            background-color: #008000;
             border: none;
             color: white;
             padding: 10px 20px;
             text-align: center;
             font-size: 14px;
-            cursor: not-allowed; /* Indicate button is disabled */
+            cursor: pointer;
             border-radius: 8px;
             margin-top: 20px;
-            box-shadow: 0px 4px 10px rgba(255, 165, 0, 0.5);
+            box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.5);
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
+        .button:hover {
+            background-color: #006400;
+            transform: translateY(-2px);
+        }
         .button:before {
-            content: '\2212'; /* Unicode for minus sign */
+            content: '\2714';
             font-size: 16px;
             margin-right: 5px;
         }
@@ -199,10 +203,10 @@
     </div>
 
     <div class="container">
-        <h1>@l6cien is limited</h1>
+        <h1>@l6cien is not terminated</h1>
         <p><a href="" target="_blank">s/o kim, spear, ski, von, peace, jj, rai</a></p>
-        <button class="button">Limited</button>
-        <p class="update-message">I have been limited, this means I cannot type on Discord for a while.</p>
+        <button class="button">Active</button>
+        <p class="update-message">If I get terminated, this will be updated.</p>
     </div>
 
     <div class="audio-player">
