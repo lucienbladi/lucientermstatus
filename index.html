@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEIZED BY WRATH.GOV</title>
+    <title>SEIZED BY ANONYMOUS OPERATION WRATH</title>
     <style>
         body {
             margin: 0;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -14,33 +15,13 @@
             background-color: black;
         }
         img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-        #inputContainer {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-        }
-        input {
-            padding: 5px;
-            width: 300px;
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
         }
     </style>
 </head>
 <body>
-    <div id="inputContainer">
-        <input type="text" id="imageUrl" placeholder="https://media.discordapp.net/attachments/1311348627477757952/1346424191724945528/operationwrath.png?ex=67c822be&is=67c6d13e&hm=ee923da6131f43f5a1690dce2e9e842bc96f1f3257a13aebed701f4798840887&=&format=webp&quality=lossless&width=982&height=552">
-        <button onclick="loadImage()">Load</button>
-    </div>
-    <img id="displayImage" src="" alt="Image will appear here">
-    <script>
-        function loadImage() {
-            var url = document.getElementById('imageUrl').value;
-            document.getElementById('displayImage').src = url;
-        }
-    </script>
+    <img src="https://media.discordapp.net/attachments/1311348627477757952/1346424191724945528/operationwrath.png?ex=67c822be&is=67c6d13e&hm=ee923da6131f43f5a1690dce2e9e842bc96f1f3257a13aebed701f4798840887&=&format=webp&quality=lossless&width=982&height=552" alt="Fullscreen Image">
 </body>
 </html>
