@@ -76,24 +76,20 @@
             text-decoration: underline;
         }
         .button {
-            background-color: #008000;
+            background-color: #FFA500; /* Orange color */
             border: none;
             color: white;
             padding: 10px 20px;
             text-align: center;
             font-size: 14px;
-            cursor: pointer;
+            cursor: not-allowed; /* Indicate button is disabled */
             border-radius: 8px;
             margin-top: 20px;
-            box-shadow: 0px 4px 10px rgba(0, 128, 0, 0.5);
+            box-shadow: 0px 4px 10px rgba(255, 165, 0, 0.5);
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
-        .button:hover {
-            background-color: #006400;
-            transform: translateY(-2px);
-        }
         .button:before {
-            content: '\2714';
+            content: '\2212'; /* Unicode for minus sign */
             font-size: 16px;
             margin-right: 5px;
         }
@@ -194,7 +190,7 @@
     </noscript>
 
     <video id="background-video" muted>
-        <source src="https://cdn.discordapp.com/attachments/1311348627477757952/1342705098861842493/videoplayback_online-video-cutter.com.mp4?ex=67c91b91&is=67c7ca11&hm=d6ed9029c091996353ed779a0ed9b49809dfa532c8dc6354fe49f71b608facc0&" type="video/mp4">
+        <source src="https://cdn.discordapp.com/attachments/1311348627477757952/1342705098861842493/videoplayback_online-video-cutter.com.mp4?ex=67cc6751&is=67cb15d1&hm=7e29dfa56c596e6392df3c0c744fe61ace49621c5ed5907dcca6336c96542b0e&" type="video/mp4">
         Your browser does not support the video element.
     </video>
 
@@ -203,10 +199,10 @@
     </div>
 
     <div class="container">
-        <h1>@l6cien is not terminated</h1>
+        <h1>@l6cien is limited</h1>
         <p><a href="" target="_blank">s/o kim, spear, ski, von, peace, jj, rai</a></p>
-        <button class="button">Active</button>
-        <p class="update-message">If I get terminated, this will be updated.</p>
+        <button class="button">Limited</button>
+        <p class="update-message">I have been limited, this means I cannot type on Discord for a while.</p>
     </div>
 
     <div class="audio-player">
@@ -222,7 +218,7 @@
     </div>
 
     <script>
-        const audio = new Audio('https://cdn.discordapp.com/attachments/1311348627477757952/1342705862266851398/FASHION.mp3?ex=67c91c47&is=67c7cac7&hm=75ff6faa3f894b98f0cef38c7adb847d697c51b003143a098254b2e7e56168f5&');
+        const audio = new Audio('https://cdn.discordapp.com/attachments/1311348627477757952/1342705862266851398/FASHION.mp3?ex=67cc6807&is=67cb1687&hm=0cc30688fce1d246f77124222db9d57d5c6f5d620b366e9623538de3ba71533e&');
         const playPauseBtn = document.querySelector('.play-pause-btn');
         const progressBar = document.querySelector('.progress');
         const progressBarContainer = document.querySelector('.progress-bar');
