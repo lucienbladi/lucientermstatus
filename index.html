@@ -14,6 +14,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             flex-direction: column;
+            position: relative;
         }
         .container {
             background: white;
@@ -31,9 +32,48 @@
             max-width: 200px;
             margin-bottom: 20px;
         }
+        .error-popup {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: red;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
+            font-weight: bold;
+        }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("contextmenu", function(event) {
+                event.preventDefault();
+                showError();
+            });
+            document.addEventListener("dblclick", function(event) {
+                event.preventDefault();
+                showError();
+            });
+            document.addEventListener("keydown", function(event) {
+                if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I") || (event.ctrlKey && event.shiftKey && event.key === "C")) {
+                    event.preventDefault();
+                    showError();
+                }
+            });
+        });
+        
+        function showError() {
+            let errorPopup = document.getElementById("error-popup");
+            errorPopup.style.display = "block";
+            setTimeout(() => {
+                errorPopup.style.display = "none";
+            }, 3000);
+        }
+    </script>
 </head>
 <body>
+    <div id="error-popup" class="error-popup">Error 505 - Bad Gateway</div>
     <img src="https://files.catbox.moe/myvpxe.png" alt="Logo" class="logo">
     <div class="container">
         <h1>This site is under maintenance, please wait!</h1>
