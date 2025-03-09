@@ -31,6 +31,7 @@
         .logo {
             max-width: 200px;
             margin-bottom: 20px;
+            display: none;
         }
         .captcha-container {
             display: none;
@@ -54,7 +55,6 @@
         }
     </style>
     <script>
-        
         function generateRandomProblem() {
             const num1 = Math.floor(Math.random() * 10) + 1;
             const num2 = Math.floor(Math.random() * 10) + 1;
@@ -63,20 +63,19 @@
             document.getElementById('captcha-answer').dataset.correctAnswer = answer;
         }
 
-        
         function checkCaptchaAnswer() {
-            const userAnswer = document.getElementById('captcha-answer').value;
-            const correctAnswer = document.getElementById('captcha-answer').dataset.correctAnswer;
+            const userAnswer = parseInt(document.getElementById('captcha-answer').value, 10);
+            const correctAnswer = parseInt(document.getElementById('captcha-answer').dataset.correctAnswer, 10);
 
-            if (parseInt(userAnswer) === correctAnswer) {
+            if (userAnswer === correctAnswer) {
                 document.getElementById('captcha-container').style.display = "none";
                 document.getElementById('container').style.display = "block";
+                document.getElementById('logo').style.display = "block";
             } else {
                 alert("Incorrect answer. Please try again.");
             }
         }
 
-        
         window.onload = function() {
             generateRandomProblem();
             document.getElementById('captcha-container').style.display = "block";
@@ -85,16 +84,12 @@
 </head>
 <body>
     <div id="error-popup" class="error-popup">Error 505 - Bad Gateway</div>
-    <img src="https://files.catbox.moe/myvpxe.png" alt="Logo" class="logo">
-
-    
+    <img id="logo" src="https://files.catbox.moe/myvpxe.png" alt="Logo" class="logo">
     <div id="captcha-container" class="captcha-container">
         <p class="captcha-question" id="captcha-question"></p>
         <input type="text" id="captcha-answer" placeholder="Your answer here">
         <button onclick="checkCaptchaAnswer()">Submit</button>
     </div>
-
-   
     <div id="container" class="container" style="display:none;">
         <h1>This site is under maintenance, please wait!</h1>
         <p>To contact the owner of this site, contact <strong>@l6cien</strong> on Discord!</p>
