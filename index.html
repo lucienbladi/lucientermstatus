@@ -1,1 +1,44 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site can't be reached</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f8f9fa;
+        }
+        .error-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        .error-code {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <h1>Hmm... Can't reach this page</h1>
+        <p>Check if there is a typo in the URL.</p>
+        <p class="error-code">DNS_PROBE_FINISHED_NXDOMAIN</p>
+        <p>Try checking your network connection.<br> If you are connected but still can’t access the site, the website might be down.</p>
+    </div>
+</body>
+</html>
