@@ -32,6 +32,14 @@
             max-width: 200px;
             margin-bottom: 20px;
         }
+        .captcha-container {
+            display: none;
+            margin-top: 30px;
+        }
+        .captcha-question {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
         .error-popup {
             position: absolute;
             top: 10px;
@@ -43,48 +51,51 @@
             border-radius: 5px;
             display: none;
             font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
         }
     </style>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.addEventListener("contextmenu", function(event) {
-                event.preventDefault();
-                showError();
-            });
-            document.addEventListener("dblclick", function(event) {
-                event.preventDefault();
-                showError();
-            });
-            document.addEventListener("keydown", function(event) {
-                if (event.key === "F12" || (event.ctrlKey && event.shiftKey && event.key === "I") || (event.ctrlKey && event.shiftKey && event.key === "C")) {
-                    event.preventDefault();
-                    showError();
-                }
-            });
-        });
+        
+        function generateRandomProblem() {
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            const answer = num1 + num2;
+            document.getElementById('captcha-question').innerHTML = `What is ${num1} + ${num2}?`;
+            document.getElementById('captcha-answer').dataset.correctAnswer = answer;
+        }
 
-        function showError() {
-            let errorPopup = document.getElementById("error-popup");
-            errorPopup.style.display = "block";
-            setTimeout(() => {
-                errorPopup.style.opacity = 1;
-            }, 10);
+        
+        function checkCaptchaAnswer() {
+            const userAnswer = document.getElementById('captcha-answer').value;
+            const correctAnswer = document.getElementById('captcha-answer').dataset.correctAnswer;
 
-            setTimeout(() => {
-                errorPopup.style.opacity = 0;
-                setTimeout(() => {
-                    errorPopup.style.display = "none";
-                }, 500);
-            }, 3000);
+            if (parseInt(userAnswer) === correctAnswer) {
+                document.getElementById('captcha-container').style.display = "none";
+                document.getElementById('container').style.display = "block";
+            } else {
+                alert("Incorrect answer. Please try again.");
+            }
+        }
+
+        
+        window.onload = function() {
+            generateRandomProblem();
+            document.getElementById('captcha-container').style.display = "block";
         }
     </script>
 </head>
 <body>
     <div id="error-popup" class="error-popup">Error 505 - Bad Gateway</div>
     <img src="https://files.catbox.moe/myvpxe.png" alt="Logo" class="logo">
-    <div class="container">
+
+    
+    <div id="captcha-container" class="captcha-container">
+        <p class="captcha-question" id="captcha-question"></p>
+        <input type="text" id="captcha-answer" placeholder="Your answer here">
+        <button onclick="checkCaptchaAnswer()">Submit</button>
+    </div>
+
+   
+    <div id="container" class="container" style="display:none;">
         <h1>This site is under maintenance, please wait!</h1>
         <p>To contact the owner of this site, contact <strong>@l6cien</strong> on Discord!</p>
     </div>
