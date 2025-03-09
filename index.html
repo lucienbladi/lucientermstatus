@@ -43,6 +43,8 @@
             border-radius: 5px;
             display: none;
             font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
     </style>
     <script>
@@ -62,12 +64,19 @@
                 }
             });
         });
-        
+
         function showError() {
             let errorPopup = document.getElementById("error-popup");
             errorPopup.style.display = "block";
             setTimeout(() => {
-                errorPopup.style.display = "none";
+                errorPopup.style.opacity = 1;
+            }, 10);
+
+            setTimeout(() => {
+                errorPopup.style.opacity = 0;
+                setTimeout(() => {
+                    errorPopup.style.display = "none";
+                }, 500);
             }, 3000);
         }
     </script>
