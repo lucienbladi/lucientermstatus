@@ -3,60 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amitermed</title>
+    <title>Maintenance Update for Amitermed</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            flex-direction: column;
+            position: relative;
         }
         .container {
-            max-width: 800px;
-            margin: 50px auto;
+            background: white;
             padding: 20px;
-            background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
-            color: #e74c3c;
-            font-size: 2.5em;
+            color: #333;
         }
         p {
-            line-height: 1.6;
-            font-size: 1.1em;
+            color: #666;
         }
-        .important {
-            color: #e74c3c;
+        .logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .captcha-container {
+            display: none;
+            margin-top: 30px;
+        }
+        .captcha-question {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .error-popup {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: red;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: none;
             font-weight: bold;
         }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #777;
-        }
-        .footer a {
-            color: #3498db;
-            text-decoration: none;
-        }
     </style>
+    <script>
+        function generateRandomProblem() {
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            const answer = num1 + num2;
+            document.getElementById('captcha-question').innerHTML = `What is ${num1} + ${num2}?`;
+            document.getElementById('captcha-answer').dataset.correctAnswer = answer;
+        }
+
+        function checkCaptchaAnswer() {
+            const userAnswer = parseInt(document.getElementById('captcha-answer').value, 10);
+            const correctAnswer = parseInt(document.getElementById('captcha-answer').dataset.correctAnswer, 10);
+
+            if (userAnswer === correctAnswer) {
+                document.getElementById('captcha-container').style.display = "none";
+                document.getElementById('container').style.display = "block";
+                document.getElementById('logo').style.display = "block";
+            } else {
+                alert("Incorrect answer. Please try again.");
+            }
+        }
+
+        window.onload = function() {
+            generateRandomProblem();
+            document.getElementById('captcha-container').style.display = "block";
+        }
+    </script>
 </head>
 <body>
-
-<div class="container">
-    <h1>Official Statement on Amitermed & the Owner of this site</h1>
-    <p>We regret to inform you that the owner of <strong>AMITERMED</strong> has recently been falsely accused and framed for a cyber-crime that he did not commit. This situation has led to significant personal and professional challenges, and in order to resolve the matter, it has become necessary to temporarily shut down all services and online profiles associated with the Owner of this site.</p>
-    <p>This is a difficult but essential step to ensure that the situation is fully addressed. We are working tirelessly to clear up any misunderstandings and restore the reputation of the owner of this site.</p>
-    <p>During this period of resolution, the AMITERMED website and all related profiles to the Owner will be offline. We appreciate your understanding and patience as the owner works through this process and strives to get everything back on track.</p>
-    <p class="important">We hope to return soon and we deeply apologize for any inconvenience this may cause and thank you for your continued support.</p>
-</div>
-
-<div class="footer">
-    <p><a href="notice-to-friends.html" target="_blank">NOTICE TO MY FRIENDS</a></p>
-</div>
-
+    <div id="error-popup" class="error-popup">Error 505 - Bad Gateway</div>
+    <img id="logo" src="https://files.catbox.moe/myvpxe.png" alt="Logo" class="logo">
+    <div id="captcha-container" class="captcha-container">
+        <p class="captcha-question" id="captcha-question"></p>
+        <input type="text" id="captcha-answer" placeholder="Your answer here">
+        <button onclick="checkCaptchaAnswer()">Submit</button>
+    </div>
+    <div id="container" class="container" style="display:none;">
+        <h1>This site is under maintenance, please wait!</h1>
+        <p>To contact the owner of this site, contact <strong>@l6cien</strong> on Discord!</p>
+    </div>
 </body>
 </html>
