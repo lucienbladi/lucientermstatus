@@ -77,21 +77,24 @@
             text-decoration: underline;
         }
         .button {
-            background-color: #008000;
+            background-color: yellow; /* Button background color */
             border: none;
-            color: white;
+            color: black; /* Text color */
             padding: 10px 20px;
             text-align: center;
             font-size: 14px;
             cursor: pointer;
             border-radius: 8px;
             margin-top: 20px;
-            box-shadow: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 0 15px 5px rgba(255, 255, 0, 0.7); /* Glowing effect around the button */
+            text-shadow: 0 0 10px yellow, 0 0 20px yellow, 0 0 30px yellow; /* Glowing text effect */
+            transition: all 0.3s ease-in-out;
         }
         .button:hover {
-            background-color: #006400;
+            background-color: #e2e200; /* Slightly darker yellow on hover */
             transform: translateY(-2px);
+            box-shadow: 0 0 20px 10px rgba(255, 255, 0, 1); /* More glowing effect on hover */
+            text-shadow: 0 0 20px yellow, 0 0 40px yellow, 0 0 60px yellow; /* Intense glow on hover */
         }
         .update-message {
             font-size: 12px;
@@ -201,8 +204,8 @@
     <div class="container">
         <h1>@l6cien is not terminated</h1>
         <p><a href="" target="_blank">s/o bladi</a></p>
-        <button class="button">Active</button>
-        <p class="update-message">IF I GET TERMINATED, THIS WILL BE UPDATED.</p>
+        <button class="button">Limited</button> <!-- Button text changed to Limited with glowing effect -->
+        <p class="update-message">I am limited for 7 days, I will be back on April 12th.</p>
     </div>
 
     <div class="audio-player">
