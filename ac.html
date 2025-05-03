@@ -42,22 +42,39 @@
         pointer-events: none;
       }
 
+      .bg-star {
+        animation: bg-float 10s linear infinite;
+        opacity: 0.4;
+      }
+
       @keyframes float {
-        0% {
-          transform: translateY(0) scale(1);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(-100px) scale(0.3);
-          opacity: 0;
-        }
+        0% { transform: translateY(0) scale(1); opacity: 1; }
+        100% { transform: translateY(-100px) scale(0.3); opacity: 0; }
+      }
+
+      @keyframes bg-float {
+        0% { transform: translateY(100vh) scale(1); opacity: 0; }
+        50% { opacity: 1; }
+        100% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
       }
     </style>
   </head>
   <body>
-    <h1>ac's fuck ass site is under maintenance.</h1>
+    <h1>ac is a bitch</h1>
 
     <script>
+      // random background stars
+      const bgStars = 100;
+      for (let i = 0; i < bgStars; i++) {
+        let star = document.createElement('div');
+        star.className = 'star bg-star';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.animationDelay = Math.random() * 10 + 's';
+        document.body.appendChild(star);
+      }
+
+      // stars that follow cursor
       document.addEventListener('mousemove', (e) => {
         for (let i = 0; i < 3; i++) {
           const star = document.createElement('div');
