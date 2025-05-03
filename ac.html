@@ -36,6 +36,21 @@
         0%, 50% { opacity: 1; }
         51%, 100% { opacity: 0; }
       }
+
+      .glitch {
+        color: red;
+        text-shadow: 
+          2px 0px 0px rgba(0, 255, 0, 0.7),
+          -2px 0px 0px rgba(255, 0, 0, 0.7),
+          0px 2px 0px rgba(0, 0, 255, 0.7),
+          0px -2px 0px rgba(255, 255, 0, 0.7);
+        animation: glitch 0.2s infinite linear alternate;
+      }
+
+      @keyframes glitch {
+        0% { text-shadow: 2px 0px 0px rgba(0, 255, 0, 0.7); }
+        100% { text-shadow: -2px 0px 0px rgba(255, 0, 0, 0.7); }
+      }
     </style>
   </head>
   <body>
@@ -44,18 +59,23 @@
     <script>
       const terminal = document.getElementById("terminal");
       const lines = [
-        "connecting to solana-nigga-ware...",
-        "bypassing firewalls...",
-        "access granted.",
-        "uploading payload...",
-        "injecting acexternalrat.exe...",
-        "tracking hwid",
-        "raping system...",
-        "finishing payload",
-        "operation complete."
+        "Connecting to system...",
+        "Bypassing encryption...",
+        "Access granted.",
+        "Uploading new protocols...",
+        "Initializing deep scan...",
+        "Tracking target system...",
+        "Injecting new updates...",
+        "Payload complete.",
+        "All systems operational."
       ];
 
       let i = 0;
+
+      function randomEffects() {
+        const effects = ["glitch", "flicker", "cursor"];
+        return effects[Math.floor(Math.random() * effects.length)];
+      }
 
       function typeLine() {
         if (i < lines.length) {
@@ -63,7 +83,8 @@
           let j = 0;
           const typer = setInterval(() => {
             if (j < line.length) {
-              terminal.innerHTML += line[j];
+              const effectClass = randomEffects();
+              terminal.innerHTML += `<span class="${effectClass}">${line[j]}</span>`;
               j++;
             } else {
               clearInterval(typer);
@@ -71,7 +92,7 @@
               i++;
               setTimeout(typeLine, 400);
             }
-          }, 30);
+          }, 50);
         } else {
           terminal.innerHTML += "<div class='cursor'></div>";
         }
@@ -79,14 +100,17 @@
 
       typeLine();
 
-      // alert spam on click
-      document.addEventListener('click', () => {
-        for (let i = 0; i < 10; i++) {
-          setTimeout(() => {
-            alert("fuxk dat nigga ac");
-          }, i * 150);
-        }
-      });
+      // Random background color change every 5 seconds
+      setInterval(() => {
+        const randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+        document.body.style.backgroundColor = randomColor;
+      }, 5000);
+
+      // Random text color change every 3 seconds
+      setInterval(() => {
+        const randomTextColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+        terminal.style.color = randomTextColor;
+      }, 3000);
     </script>
   </body>
 </html>
