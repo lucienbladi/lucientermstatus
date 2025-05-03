@@ -1,7 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/ac", "destination": "/ac.html" },
-    { "source": "/bob", "destination": "/bob.html" },
-    { "source": "/kai", "destination": "/kai.html" }
-  ]
-}
