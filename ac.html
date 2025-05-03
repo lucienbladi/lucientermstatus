@@ -1,91 +1,82 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ac page</title>
+    <title>hacker mode</title>
     <style>
       body {
         margin: 0;
         background: black;
+        color: #00ff00;
+        font-family: "Courier New", monospace;
+        font-size: 18px;
+        padding: 20px;
         overflow: hidden;
-        font-family: Arial, sans-serif;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
       }
 
-      h1 {
-        font-size: 80px;
-        animation: rainbow 3s infinite linear;
-        position: relative;
-        z-index: 1;
+      .terminal {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        animation: flicker 0.1s infinite alternate;
       }
 
-      @keyframes rainbow {
-        0% { color: red; }
-        16% { color: orange; }
-        32% { color: yellow; }
-        48% { color: green; }
-        64% { color: blue; }
-        80% { color: indigo; }
-        100% { color: violet; }
+      @keyframes flicker {
+        0% { opacity: 1; }
+        100% { opacity: 0.95; }
       }
 
-      .star {
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        background: white;
-        border-radius: 50%;
-        animation: float 2s linear forwards;
-        opacity: 0.8;
-        pointer-events: none;
+      .cursor {
+        display: inline-block;
+        width: 10px;
+        height: 20px;
+        background: #00ff00;
+        animation: blink 0.7s infinite;
       }
 
-      .bg-star {
-        animation: bg-float 10s linear infinite;
-        opacity: 0.4;
-      }
-
-      @keyframes float {
-        0% { transform: translateY(0) scale(1); opacity: 1; }
-        100% { transform: translateY(-100px) scale(0.3); opacity: 0; }
-      }
-
-      @keyframes bg-float {
-        0% { transform: translateY(100vh) scale(1); opacity: 0; }
-        50% { opacity: 1; }
-        100% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
+      @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
       }
     </style>
   </head>
   <body>
-    <h1>ac was here.</h1>
-
+    <div class="terminal" id="terminal"></div>
     <script>
-      // random background stars
-      const bgStars = 100;
-      for (let i = 0; i < bgStars; i++) {
-        let star = document.createElement('div');
-        star.className = 'star bg-star';
-        star.style.left = Math.random() * 100 + 'vw';
-        star.style.top = Math.random() * 100 + 'vh';
-        star.style.animationDelay = Math.random() * 10 + 's';
-        document.body.appendChild(star);
+      const terminal = document.getElementById("terminal");
+      const lines = [
+        "connecting to mainframe...",
+        "bypassing firewalls...",
+        "access granted.",
+        "uploading payload...",
+        "injecting script.js...",
+        "tracking ip: 127.0.0.1",
+        "decrypting files...",
+        "ac is getting cooked 💀",
+        "operation complete."
+      ];
+
+      let i = 0;
+
+      function typeLine() {
+        if (i < lines.length) {
+          const line = lines[i];
+          let j = 0;
+          const typer = setInterval(() => {
+            if (j < line.length) {
+              terminal.innerHTML += line[j];
+              j++;
+            } else {
+              clearInterval(typer);
+              terminal.innerHTML += "\n";
+              i++;
+              setTimeout(typeLine, 400);
+            }
+          }, 30);
+        } else {
+          terminal.innerHTML += "<div class='cursor'></div>";
+        }
       }
 
-      // stars that follow cursor
-      document.addEventListener('mousemove', (e) => {
-        for (let i = 0; i < 3; i++) {
-          const star = document.createElement('div');
-          star.className = 'star';
-          star.style.left = (e.clientX + (Math.random() * 30 - 15)) + 'px';
-          star.style.top = (e.clientY + (Math.random() * 30 - 15)) + 'px';
-          star.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
-          document.body.appendChild(star);
-          setTimeout(() => star.remove(), 2000);
-        }
-      });
+      typeLine();
     </script>
   </body>
 </html>
