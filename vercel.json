@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/low", "destination": "/low.html" }
+  ]
+}
