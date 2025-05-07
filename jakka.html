@@ -62,12 +62,28 @@
   <body>
     <h1>@jakka was here.</h1>
 
-    <audio autoplay loop hidden>
-      <source src="https://files.catbox.moe/n9w3ec.mp3" type="audio/mpeg">
-    </audio>
-
     <script>
-      // random background stars
+      // create and play audio forcefully
+      const audio = new Audio("https://amitermed.live/jakka/audio.mp3");
+      audio.loop = true;
+
+      const tryPlay = () => {
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              // worked
+            })
+            .catch(() => {
+              // try again on interaction
+              document.body.addEventListener("click", () => audio.play(), { once: true });
+            });
+        }
+      };
+
+      window.addEventListener("load", tryPlay);
+
+      // background stars
       const bgStars = 100;
       for (let i = 0; i < bgStars; i++) {
         let star = document.createElement('div');
@@ -78,7 +94,7 @@
         document.body.appendChild(star);
       }
 
-      // stars that follow cursor
+      // cursor trail
       document.addEventListener('mousemove', (e) => {
         for (let i = 0; i < 3; i++) {
           const star = document.createElement('div');
