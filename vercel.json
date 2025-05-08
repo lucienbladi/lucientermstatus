@@ -1,6 +1,5 @@
 {
   "rewrites": [
-    { "source": "/low", "destination": "/low.html" },
     { "source": "/rts", "destination": "/rts.html" },
     { "source": "/caden", "destination": "/caden.html" },
     { "source": "/jakka", "destination": "/jakka.html" }
