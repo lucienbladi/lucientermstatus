@@ -77,7 +77,7 @@
             text-decoration: underline;
         }
         .button {
-            background-color: #008000;
+            background-color: red;
             border: none;
             color: white;
             padding: 10px 20px;
@@ -90,7 +90,7 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
         .button:hover {
-            background-color: #006400;
+            background-color: darkred;
             transform: translateY(-2px);
         }
         .update-message {
@@ -199,10 +199,10 @@
     </div>
 
     <div class="container">
-        <h1>@70cg is not terminated</h1>
+        <h1>@70cg is terminated</h1>
         <p><a href="" target="_blank">/xbetterk</a></p>
-        <button class="button">Active</button>
-        <p class="update-message">IF I GET TERMINATED, THIS WILL BE UPDATED.</p>
+        <button class="button">Termed</button>
+        <p class="update-message">I HAVE BEEN TERMINATED, ADD @example MY NEW ACCOUNT</p>
     </div>
 
     <div class="audio-player">
@@ -283,33 +283,4 @@
                 e.metaKey && e.key === "Q",
                 e.metaKey && e.key === "I",
             ];
-            if (blockedKeys.includes(e.key) || blockedCombos.some(combo => combo)) {
-                e.preventDefault();
-                alert("Error");
-            }
-        });
-
-        // dev tool disabler
-        (function() {
-            const threshold = 160;
-            let opened = false;
-
-            function detectDevTools() {
-                const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-                const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-
-                if ((widthThreshold || heightThreshold) && !opened) {
-                    opened = true;
-                    document.body.innerHTML = "";
-                    alert("dev tools are not allowed.");
-                    window.location.reload();
-                } else if (!(widthThreshold || heightThreshold)) {
-                    opened = false;
-                }
-            }
-
-            setInterval(detectDevTools, 1000);
-        })();
-    </script>
-</body>
-</html>
+            if (blockedKeys.includes(e.key) || blockedCombos.some
