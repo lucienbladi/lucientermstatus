@@ -217,99 +217,61 @@
         </div>
     </div>
 
-   <script>
-    const audio = new Audio('https://files.catbox.moe/z4y2fs.mp3');
-    audio.loop = true; // 
+  <script>
+(function(){
+    const audio=new Audio('https://files.catbox.moe/z4y2fs.mp3');audio.loop=true;
+    const playBtn=document.querySelector('.play-pause-btn'),
+          progress=document.querySelector('.progress'),
+          progressBar=document.querySelector('.progress-bar'),
+          volumeBar=document.querySelector('.volume');
+    let isPlaying=false;
 
-    const playPauseBtn = document.querySelector('.play-pause-btn');
-    const progressBar = document.querySelector('.progress');
-    const progressBarContainer = document.querySelector('.progress-bar');
-    const volumeBar = document.querySelector('.volume');
-    let isPlaying = false;
-
-    function startMedia() {
-        console.log("startMedia triggered");
-        const video = document.getElementById('background-video');
-        video.play();
+    window.startMedia=function(){
+        document.getElementById('background-video').play();
         audio.play();
-        document.querySelector('.overlay').style.display = 'none';
-        document.querySelector('.container').style.display = 'block';
-    }
-
-    function togglePlayPause() {
-        if (isPlaying) {
-            audio.pause();
-            playPauseBtn.textContent = '▶';
-        } else {
-            audio.play();
-            playPauseBtn.textContent = '❚❚';
-        }
-        isPlaying = !isPlaying;
-    }
-
-    audio.ontimeupdate = function () {
-        const progress = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = `${progress}%`;
+        document.querySelector('.overlay').style.display='none';
+        document.querySelector('.container').style.display='block';
     };
 
-    function seekAudio(event) {
-        const clickX = event.offsetX;
-        const width = progressBarContainer.offsetWidth;
-        const duration = audio.duration;
-        audio.currentTime = (clickX / width) * duration;
-    }
+    window.togglePlayPause=function(){
+        if(isPlaying){audio.pause();playBtn.textContent='▶';}
+        else{audio.play();playBtn.textContent='❚❚';}
+        isPlaying=!isPlaying;
+    };
 
-    function adjustVolume(event) {
-        const clickX = event.offsetX;
-        const width = volumeBar.offsetWidth;
-        const volume = clickX / width;
-        audio.volume = volume;
-        volumeBar.style.width = `${volume * 100}%`;
-    }
+    audio.ontimeupdate=function(){
+        progress.style.width=`${(audio.currentTime/audio.duration)*100}%`;
+    };
 
-    document.addEventListener('contextmenu', function (e) {
-        e.preventDefault();
-        alert("Error");
-    });
+    window.seekAudio=function(e){
+        const clickX=e.offsetX,
+              width=progressBar.offsetWidth;
+        audio.currentTime=(clickX/width)*audio.duration;
+    };
 
-    document.addEventListener('keydown', function (e) {
-        const blockedKeys = ["F12", "F11", "F10", "F9"];
-        const blockedCombos = [
-            e.ctrlKey && e.key === "U",
-            e.ctrlKey && e.shiftKey && e.key === "I",
-            e.ctrlKey && e.shiftKey && e.key === "J",
-            e.ctrlKey && e.key === "P",
-            e.ctrlKey && e.shiftKey && e.key === "C",
-            e.ctrlKey && e.shiftKey && e.key === "K",
-            e.ctrlKey && e.key === "S",
-            e.metaKey && e.key === "Q",
-            e.metaKey && e.key === "I",
+    window.adjustVolume=function(e){
+        const clickX=e.offsetX,
+              width=volumeBar.offsetWidth,
+              vol=clickX/width;
+        audio.volume=vol;
+        volumeBar.style.width=`${vol*100}%`;
+    };
+
+    document.addEventListener('contextmenu',e=>{e.preventDefault();alert("Error")});
+    document.addEventListener('keydown',e=>{
+        const keysBlocked=["F12","F11","F10","F9"];
+        const combosBlocked=[
+            e.ctrlKey&&e.key==="U",
+            e.ctrlKey&&e.shiftKey&&e.key==="I",
+            e.ctrlKey&&e.shiftKey&&e.key==="J",
+            e.ctrlKey&&e.key==="P",
+            e.ctrlKey&&e.shiftKey&&e.key==="C",
+            e.ctrlKey&&e.shiftKey&&e.key==="K",
+            e.ctrlKey&&e.key==="S",
+            e.metaKey&&e.key==="Q",
+            e.metaKey&&e.key==="I"
         ];
-        if (blockedKeys.includes(e.key) || blockedCombos.some(combo => combo)) {
-            e.preventDefault();
-            alert("Error");
-        }
+        if(keysBlocked.includes(e.key)||combosBlocked.some(v=>v)){e.preventDefault();alert("Error")}
     });
-
-    // dev tool disabler
-    (function() {
-        const threshold = 160;
-        let opened = false;
-
-        function detectDevTools() {
-            const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-            const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-
-            if ((widthThreshold || heightThreshold) && !opened) {
-                opened = true;
-                document.body.innerHTML = "";
-                alert("dev tools are not allowed.");
-                window.location.reload();
-            } else if (!(widthThreshold || heightThreshold)) {
-                opened = false;
-            }
-        }
-
-        setInterval(detectDevTools, 1000);
-    })();
+})();
 </script>
