@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
 <script>
-  const titleOptions = [
+  const titles = [
     "???", "☠ ☠", "??!!@#ERROR#@!!??", "WFEF2F3525323nd1n2y@",
     "Rebooting...", "undefined_null_void", "CSINT", "0x33",
     "WARNI3225NG", "███ ███ ███", "te@bl@di", "#$*(@!)_&$^%", 
@@ -24,7 +24,7 @@
   ];
 
   function rotateTitle() {
-    const title = titleOptions[Math.floor(Math.random() * titleOptions.length)];
+    const title = titles[Math.floor(Math.random() * titles.length)];
     document.title = title;
   }
 
