@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>lucien</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
   <style>
-body {
+    body {
       min-height: 100vh;
       margin: 0;
       font-family: 'Montserrat', sans-serif;
@@ -94,7 +94,7 @@ body {
     }
     .links a {
       background: rgba(255,255,255,0.22);
-      color: #333;
+      color: #900;               /* changed from #333 to red */
       text-decoration: none;
       padding: 0.7rem 1.2rem;
       border-radius: 12px;
@@ -103,7 +103,7 @@ body {
       box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.10);
     }
     .links a:hover {
-      background: #43b581;
+      background: #900;          /* changed from #43b581 to red */
       color: #fff;
     }
     .music-player {
@@ -128,7 +128,7 @@ body {
     <span id="enter-btn" style="font-family:'Montserrat',sans-serif;font-size:2.2rem;color:#fff;letter-spacing:0.04em;user-select:none;">Click to enter</span>
   </div>
   <div class="glass" id="profile" style="opacity:0;transform:translateY(80px);pointer-events:none;transition:opacity 1.2s cubic-bezier(.4,0,.2,1),transform 1.2s cubic-bezier(.4,0,.2,1);">
-    <img class="avatar" id="avatar" src="" alt="Avatar" style="border:3px solid #aaa;transition:border-color 0.3s;">
+    <img class="avatar" id="avatar" src="" alt="Avatar" style="border:3px solid #aaa;transition:border-color 0.3s;" />
     <div class="username" id="username">Loading...</div>
     <div class="status" id="status">
       <span id="status-text">Loading...</span>
@@ -136,7 +136,7 @@ body {
     <div class="bio" id="bio">Discord Bio will appear here.</div>
     <div id="activity" style="margin-bottom:1.2rem;"></div>
     <div class="links">
-      <a href="" target="_blank">Active</a>
+      <a href="" target="_blank">Suspended - Add @l8cien</a>
     </div>
   </div>
   <script>
@@ -212,7 +212,7 @@ body {
       bgvid.muted = true;
     });
 
-    const DISCORD_ID = '1215218012701986903';
+    const DISCORD_ID = '1358260417645903943';
     const ws = new WebSocket('wss://api.lanyard.rest/socket');
     let heartbeatInterval;
 
