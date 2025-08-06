@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>lucien</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+    .background {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
+    }
+    .background::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      backdrop-filter: blur(10px) brightness(0.7);
+      -webkit-backdrop-filter: blur(10px) brightness(0.7);
+      z-index: 1;
+    }
+    .glass {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 24px;
+      box-shadow:
+        0 8px 32px 0 rgba(255, 255, 255, 0.37),
+        0 1.5px 8px 0 rgba(255,255,255,0.18);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      padding: 2.5rem 2rem 2rem 2rem;
+      max-width: 350px;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      margin: 2rem;
+      transition: box-shadow 0.2s, transform 0.2s cubic-bezier(.25,.46,.45,.94);
+      will-change: transform;
+      perspective: 1000px;
+    }
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.5);
+      margin-bottom: 1rem;
+      object-fit: cover;
+      background: #eee;
+    }
+    .username {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.5px;
+    }
+    .status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 2px solid #fff;
+    }
+    .bio {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      color: #e0e0e0;
+    }
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-bottom: 1.2rem;
+    }
+    .links a {
+      background: rgba(255,255,255,0.22);
+      color: #900;
+      text-decoration: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.10);
+    }
+    .links a:hover {
+      background: #900;
+      color: #fff;
+    }
+    .music-player {
+      margin-top: 1.5rem;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.10);
+    }
+    @media (max-width: 500px) {
+      .glass {
+        padding: 1.2rem 0.5rem 1rem 0.5rem;
+        max-width: 98vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background" id="background">
+    <video id="bgvid" playsinline loop style="position:fixed;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:0;"></video>
+  </div>
+  <div id="enter-overlay" style="position:fixed;z-index:10;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;transition:opacity 0.7s;cursor:pointer;">
+    <span id="enter-btn" style="font-family:'Montserrat',sans-serif;font-size:2.2rem;color:#fff;letter-spacing:0.04em;user-select:none;">Click to enter</span>
+  </div>
+  <div class="glass" id="profile" style="opacity:0;transform:translateY(80px);pointer-events:none;transition:opacity 1.2s cubic-bezier(.4,0,.2,1),transform 1.2s cubic-bezier(.4,0,.2,1);">
+    <img class="avatar" id="avatar" src="" alt="Avatar" style="border:3px solid #aaa;transition:border-color 0.3s;" />
+    <div class="username" id="username">Loading...</div>
+    <div class="status" id="status">
+      <span id="status-text">Loading...</span>
+    </div>
+    <div class="bio" id="bio">Discord Bio will appear here.</div>
+    <div id="activity" style="margin-bottom:1.2rem;"></div>
+    <div class="links">
+      <a href="" target="_blank">Suspended - Add @l8cien</a>
+    </div>
+  </div>
+  <script>
+    const enterOverlay = document.getElementById('enter-overlay');
+    const enterBtn = document.getElementById('enter-btn');
+    const profile = document.getElementById('profile');
+    const bgvid = document.getElementById('bgvid');
+    
+    bgvid.src = 'bg.mp4';
+    bgvid.preload = 'auto';
+    bgvid.muted = true;
+
+    function showMainContent() {
+      enterOverlay.style.opacity = 0;
+      profile.style.transition = 'opacity 1.3s cubic-bezier(.4,0,.2,1), transform 1.3s cubic-bezier(.4,0,.2,1)';
+      profile.style.opacity = 1;
+      profile.style.transform = 'translateY(-20px)';
+      profile.style.pointerEvents = '';
+      setTimeout(() => {
+        enterOverlay.style.display = 'none';
+        bgvid.muted = false;
+        bgvid.play();
+        const audio = document.getElementById('audio');
+        if (audio) {
+          audio.muted = false;
+          audio.play();
+        }
+      }, 400);
+    }
+
+    enterOverlay.addEventListener('click', showMainContent);
+
+    const cursor = document.createElement('div');
+    cursor.style.position = 'fixed';
+    cursor.style.top = '0';
+    cursor.style.left = '0';
+    cursor.style.width = '32px';
+    cursor.style.height = '32px';
+    cursor.style.borderRadius = '50%';
+    cursor.style.background = 'rgba(255,255,255,0.13)';
+    cursor.style.border = '2px solid #fff';
+    cursor.style.pointerEvents = 'none';
+    cursor.style.zIndex = '9999';
+    cursor.style.transition = 'background 0.2s, border 0.2s';
+    cursor.style.mixBlendMode = 'exclusion';
+    document.body.appendChild(cursor);
+
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let cursorX = mouseX, cursorY = mouseY;
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+    function animateCursor() {
+      cursorX += (mouseX - cursorX) * 0.08;
+      cursorY += (mouseY - cursorY) * 0.08;
+      cursor.style.transform = `translate(-50%, -50%) translate(${cursorX}px,${cursorY}px)`;
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    const style = document.createElement('style');
+    style.innerHTML = `* { cursor: none !important; }`;
+    document.head.appendChild(style);
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && enterOverlay.style.display !== 'none') showMainContent();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const audio = document.getElementById('audio');
+      if (audio) audio.muted = true;
+      bgvid.muted = true;
+    });
+
+    const DISCORD_ID = '1358260417645903943';
+    const ws = new WebSocket('wss://api.lanyard.rest/socket');
+    let heartbeatInterval;
+
+    function setStatus(status) {
+      const text = document.getElementById('status-text');
+      const avatar = document.getElementById('avatar');
+      let color = '#aaa', label = 'Offline';
+      switch (status) {
+        case 'online': color = '#43b581'; label = 'Online'; break;
+        case 'idle': color = '#faa61a'; label = 'Idle'; break;
+        case 'dnd': color = '#f04747'; label = 'Do Not Disturb'; break;
+        case 'offline': color = '#747f8d'; label = 'Offline'; break;
+        default: color = '#aaa'; label = 'Unknown';
+      }
+      avatar.style.borderColor = color;
+      text.textContent = label;
+    }
+
+    function updateProfile(data) {
+      const user = data.discord_user;
+      document.getElementById('username').textContent = user.username + (user.discriminator !== '0' ? '#' + user.discriminator : '');
+      document.getElementById('avatar').src = user.avatar
+        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=256`
+        : 'https://cdn.discordapp.com/embed/avatars/0.png';
+      setStatus(data.discord_status);
+      const bioDiv = document.getElementById('bio');
+      if (user.bio && user.bio.trim() !== '') {
+        bioDiv.textContent = user.bio;
+      } else {
+        let customStatus = null;
+        if (Array.isArray(data.activities)) {
+          for (const act of data.activities) {
+            if (act.type === 4 && act.state) {
+              customStatus = act.state;
+              break;
+            }
+          }
+        }
+        if (customStatus) {
+          bioDiv.textContent = customStatus;
+        } else {
+          bioDiv.textContent = 'Lucien has no status set.';
+        }
+      }
+
+      const activityDiv = document.getElementById('activity');
+      let html = '';
+      if (data.listening_to_spotify && data.spotify) {
+        html += `<div style="display:flex;align-items:center;gap:0.7rem;justify-content:center;border-radius:12px;padding:0.7rem 1rem;margin-bottom:0.7rem;">
+          <img src="${data.spotify.album_art_url}" alt="Spotify Album Art" style="width:48px;height:48px;border-radius:8px;">
+          <div style="text-align:left;">
+            <div style='font-size:1.05em;color:#fff;'>${data.spotify.song}</div>
+            <div style='font-size:0.95em;color:#e0e0e0;'>by ${data.spotify.artist}</div>
+            <div style='font-size:0.9em;color:#b0b0b0;'>on ${data.spotify.album}</div>
+          </div>
+        </div>`;
+      }
+      if (Array.isArray(data.activities)) {
+        data.activities.forEach(act => {
+          if (act.type === 0 && act.name && act.state) {
+            html += `<div style='margin-top:0.7rem;'><b>Playing:</b> <span style='color:#fff;'>${act.name}</span> <span style='color:#b0b0b0;'>${act.state ? `- ${act.state}` : ''}</span></div>`
+          } else if (act.type === 3 && act.name) {
+            html += `<div style='margin-top:0.7rem;'><b>Watching:</b> <span style='color:#fff;'>${act.name}</span></div>`;
+          }
+        });
+      }
+      activityDiv.innerHTML = html;
+    }
+
+    ws.onopen = () => {
+      ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
+    };
+    ws.onmessage = (event) => {
+      const msg = JSON.parse(event.data);
+      if (msg.op === 1 && msg.d.heartbeat_interval) {
+        clearInterval(heartbeatInterval);
+        heartbeatInterval = setInterval(() => ws.send(JSON.stringify({ op: 3 })), msg.d.heartbeat_interval);
+      }
+      if (msg.t === 'INIT_STATE' || msg.t === 'PRESENCE_UPDATE') {
+        updateProfile(msg.d);
+      }
+    };
+    ws.onclose = () => clearInterval(heartbeatInterval);
+    ws.onerror = () => clearInterval(heartbeatInterval);
+
+    const glass = document.getElementById('profile');
+    document.addEventListener('mousemove', (e) => {
+      const rect = glass.getBoundingClientRect();
+      const x = e.clientX - (rect.left + rect.width / 2);
+      const y = e.clientY - (rect.top + rect.height / 2);
+      const maxTilt = 9;
+      const rotateY = Math.max(-maxTilt, Math.min(maxTilt, (x / (rect.width / 2)) * maxTilt));
+      const rotateX = Math.max(-maxTilt, Math.min(maxTilt, (y / (rect.height / 2)) * maxTilt));
+      glass.style.transform = `perspective(900px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    document.addEventListener('mouseleave', () => {
+      glass.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+    });
+    glass.addEventListener('mouseleave', () => {
+      glass.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+    });
+    glass.addEventListener('mouseenter', () => {
+      glass.style.transition = 'transform 0.2s cubic-bezier(.25,.46,.45,.94)';
+    });
+
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) ||
+        (e.ctrlKey && e.key.toUpperCase() === 'U') ||
+        (e.metaKey && e.altKey && e.key.toUpperCase() === 'I')
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+    });
+
+    (function() {
+      let check = () => {
+        const t1 = performance.now();
+        debugger;
+        const t2 = performance.now();
+        if (t2 - t1 > 100) {
+          document.body.innerHTML = '';
+          while (1) {}
+        }
+      };
+      setInterval(check, 300);
+    })();
+
+    (function() {
+      let devtoolsOpen = false;
+      const element = new Image();
+      Object.defineProperty(element, 'id', {
+        get: function() {
+          devtoolsOpen = true;
+          throw new Error('Blocked');
+        }
+      });
+      setInterval(() => {
+        devtoolsOpen = false;
+        console.log(element);
+        if (devtoolsOpen) {
+          document.body.innerHTML = '';
+          while (1) {}
+        }
+      }, 500);
+    })();
+  </script>
+</body>
+</html>
