@@ -102,17 +102,19 @@ body {
       transition: background 0.2s, color 0.2s;
       box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.10);
     }
-    .links a:hover {
+
+    /* only apply the green hover to links that are NOT the terminated button */
+    .links a:not(.term):hover {
       background: #43b581;
       color: #fff;
     }
 
-    /* only change: make the terminated button red and red on hover */
-    .term {
+    /* terminated button styles */
+    .links a.term {
       background: rgba(240, 71, 71, 0.18);
       color: #fff;
     }
-    .term:hover {
+    .links a.term:hover {
       background: #f04747;
       color: #fff;
     }
