@@ -102,23 +102,10 @@ body {
       transition: background 0.2s, color 0.2s;
       box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.10);
     }
-
-    /* only apply the green hover to links that are NOT the terminated button */
-    .links a:not(.term):hover {
+    .links a:hover {
       background: #43b581;
       color: #fff;
     }
-
-    /* terminated button styles */
-    .links a.term {
-      background: rgba(240, 71, 71, 0.18);
-      color: #fff;
-    }
-    .links a.term:hover {
-      background: #f04747;
-      color: #fff;
-    }
-
     .music-player {
       margin-top: 1.5rem;
       border-radius: 12px;
@@ -149,7 +136,7 @@ body {
     <div class="bio" id="bio">Discord Bio will appear here.</div>
     <div id="activity" style="margin-bottom:1.2rem;"></div>
     <div class="links">
-      <a href="" target="_blank" class="term">Ban Evasion</a>
+      <a href="" target="_blank">Active</a>
     </div>
   </div>
   <script>
@@ -225,7 +212,7 @@ body {
       bgvid.muted = true;
     });
 
-    const DISCORD_ID = '1452050069506490452';
+    const DISCORD_ID = '316603876117577739';
     const ws = new WebSocket('wss://api.lanyard.rest/socket');
     let heartbeatInterval;
 
@@ -267,7 +254,7 @@ body {
         if (customStatus) {
           bioDiv.textContent = customStatus;
         } else {
-          bioDiv.textContent = 'On a ban evasion watch-list, my active account will be posted above.';
+          bioDiv.textContent = 'Lucien has no status set.';
         }
       }
 
