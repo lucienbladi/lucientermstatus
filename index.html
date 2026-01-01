@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Cursor Particles</title>
+<title>Center Glow</title>
 <style>
     body {
         margin: 0;
@@ -15,7 +15,7 @@
 
     .container {
         position: absolute;
-        top: 40%;
+        top: 50%;
         width: 100%;
         text-align: center;
         transform: translateY(-50%);
@@ -38,7 +38,6 @@
         background: white;
         border-radius: 50%;
         pointer-events: none;
-        opacity: 1;
         animation: fade 0.8s linear forwards;
     }
 
@@ -48,13 +47,40 @@
             opacity: 0;
         }
     }
+
+    .icons {
+        position: absolute;
+        bottom: 30px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .icons img {
+        width: 40px;
+        margin: 0 15px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .icons img:hover {
+        transform: scale(1.15);
+    }
 </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="title">@xvnxvx ( 316603876117577739 ) on discord or https://t.me/aeolists</div>
-    <div class="subtitle">The End of Amitermed.live</div>
+    <div class="title">The End of Amitermed</div>
+    <div class="subtitle">Amitermed will be permanently getting shutdown and potentially transferred to a new owner. If you'd like to contact me, you can refer the socials below.</div>
+</div>
+
+<div class="icons">
+    <a href="https://pad.riseup.net/p/anwjuG_YlrGzt7eNYhb-" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg">
+    </a>
+    <a href="https://t.me/aeolists" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
+    </a>
 </div>
 
 <script>
@@ -63,12 +89,8 @@
         particle.className = "particle";
         particle.style.left = e.clientX + "px";
         particle.style.top = e.clientY + "px";
-
         document.body.appendChild(particle);
-
-        setTimeout(() => {
-            particle.remove();
-        }, 800);
+        setTimeout(() => particle.remove(), 800);
     });
 </script>
 
