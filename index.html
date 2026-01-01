@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Center Glow</title>
+<title>AMITERMED</title>
 <style>
     body {
         margin: 0;
@@ -29,6 +29,9 @@
     .subtitle {
         margin-top: 10px;
         font-size: 18px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .particle {
@@ -55,15 +58,36 @@
         text-align: center;
     }
 
-    .icons img {
-        width: 40px;
-        margin: 0 15px;
-        cursor: pointer;
-        transition: transform 0.2s;
+    .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        margin: 0 10px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 16px;
+        transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .icons img:hover {
-        transform: scale(1.15);
+    .button img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .discord {
+        color: #8ea1ff;
+        border: 1px solid #8ea1ff;
+    }
+
+    .telegram {
+        color: #1da1f2;
+        border: 1px solid #1da1f2;
+    }
+
+    .button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 10px currentColor;
     }
 </style>
 </head>
@@ -71,15 +95,20 @@
 
 <div class="container">
     <div class="title">The End of Amitermed</div>
-    <div class="subtitle">Amitermed will be permanently getting shutdown and potentially transferred to a new owner. If you'd like to contact me, you can refer the socials below.</div>
+    <div class="subtitle">
+        Amitermed will be permanently getting shutdown and potentially transferred to a new owner.
+        If you'd like to contact me, you can refer the socials below.
+    </div>
 </div>
 
 <div class="icons">
-    <a href="https://pad.riseup.net/p/anwjuG_YlrGzt7eNYhb-" target="_blank">
+    <a class="button discord" href="https://pad.riseup.net/p/anwjuG_YlrGzt7eNYhb-" target="_blank">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg">
+        Discord
     </a>
-    <a href="https://t.me/aeolists" target="_blank">
+    <a class="button telegram" href="https://t.me/aeolists" target="_blank">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg">
+        Telegram
     </a>
 </div>
 
