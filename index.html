@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Amitermed</title>
+<title>Cursor Particles</title>
 <style>
     body {
         margin: 0;
@@ -10,62 +10,66 @@
         background: black;
         font-family: Arial, sans-serif;
         color: white;
+        cursor: none;
+    }
+
+    .container {
+        position: absolute;
+        top: 40%;
+        width: 100%;
+        text-align: center;
+        transform: translateY(-50%);
     }
 
     .title {
-        position: absolute;
-        top: 30px;
-        width: 100%;
-        text-align: center;
-        font-size: 48px;
-        color: white;
-        text-shadow: 0 0 10px white, 0 0 20px white;
+        font-size: 52px;
+        text-shadow: 0 0 12px white, 0 0 25px white;
     }
 
     .subtitle {
-        position: absolute;
-        top: 95px;
-        width: 100%;
-        text-align: center;
+        margin-top: 10px;
         font-size: 18px;
-        color: white;
     }
 
-    .star {
+    .particle {
         position: absolute;
-        width: 2px;
-        height: 2px;
+        width: 6px;
+        height: 6px;
+        background: white;
         border-radius: 50%;
-        animation: move 6s linear infinite;
+        pointer-events: none;
+        opacity: 1;
+        animation: fade 0.8s linear forwards;
     }
 
-    @keyframes move {
-        from {
-            transform: translateY(0);
-        }
+    @keyframes fade {
         to {
-            transform: translateY(110vh);
+            transform: scale(0);
+            opacity: 0;
         }
     }
 </style>
 </head>
 <body>
 
-<div class="title">The End of Amitermed.live</div>
-<div class="subtitle">Amitermed.live will be getting shutdown and potentially transferred to a new owner. In case this happens, contact @xvnxvx on discord or t.me/aeolists</div>
+<div class="container">
+    <div class="title">White Glowing Text</div>
+    <div class="subtitle">Smaller white text under it</div>
+</div>
 
 <script>
-    const colors = ["red", "orange", "yellow", "green", "blue", "purple"];
+    document.addEventListener("mousemove", (e) => {
+        const particle = document.createElement("div");
+        particle.className = "particle";
+        particle.style.left = e.clientX + "px";
+        particle.style.top = e.clientY + "px";
 
-    for (let i = 0; i < 150; i++) {
-        const star = document.createElement("div");
-        star.className = "star";
-        star.style.left = Math.random() * 100 + "vw";
-        star.style.top = Math.random() * 100 + "vh";
-        star.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        star.style.animationDuration = Math.random() * 5 + 3 + "s";
-        document.body.appendChild(star);
-    }
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+            particle.remove();
+        }, 800);
+    });
 </script>
 
 </body>
